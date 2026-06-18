@@ -8,7 +8,13 @@ import profileRoutes from './routes/profile.js';
 const app = express();
 const PORT = 7890;
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://gehlotai.vercel.app',
+  process.env.ORIGIN,
+].filter(Boolean);
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
